@@ -56,4 +56,12 @@ public class VendingMachineTest {
         assertEquals(Coin.Quarter, vend.coinReturn[0]);
     }
 
+    @Test
+    public void returnChangeAfterInsertingMoney() {
+        vend.insertCoin(Coin.Nickel);
+        vend.insertCoin(Coin.Dime);
+        vend.insertCoin(Coin.Quarter);
+        vend.returnChange();
+        assertEquals(Coin.Nickel, vend.coinReturn[2]);
+    }
 }

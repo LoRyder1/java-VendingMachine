@@ -33,17 +33,19 @@ public class VendingMachine {
 
     private void buyProduct(Product product) {
         currentAmount -= product.value;
-        makeChange();
+        returnChange();
     }
 
-    private void makeChange() {
-        if (currentAmount == 25) {
-            coinReturn[indexCoin++] = Coin.Quarter;
-        } else if (currentAmount == 10) {
-            coinReturn[indexCoin++] = Coin.Dime;
-        } else {
-            coinReturn[indexCoin++] = Coin.Nickel;
+    public void returnChange() {
+        Coin[] coins = {Coin.Quarter, Coin.Dime, Coin.Nickel};
+        for(int i = 0; i < coins.length; i++) {
+            int n = currentAmount / coins[i].value;
+            for(int j = 0; j < n; j++) {
+                coinReturn[indexCoin++] = coins[i];
+                currentAmount -= coins[i].value;
+            }
         }
+
     }
 }
 
