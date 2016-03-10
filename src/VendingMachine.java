@@ -22,7 +22,10 @@ public class VendingMachine {
     }
 
     public void selectProduct(Product product) {
-        if (currentAmount >= product.value) {
+        if (product.soldOut == true) {
+            display = "SOLD OUT";
+        }
+        else if (currentAmount >= product.value) {
             buyProduct(product);
             dispenser[indexDis++] = product;
             display = "THANK YOU";

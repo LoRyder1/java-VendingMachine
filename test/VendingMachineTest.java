@@ -64,4 +64,11 @@ public class VendingMachineTest {
         vend.returnChange();
         assertEquals(Coin.Nickel, vend.coinReturn[2]);
     }
+
+    @Test
+    public void whenASoldOutIsSelectedUpdateDisplay() {
+        vend.insertCoin(Coin.Quarter);
+        vend.selectProduct(Product.Candy);
+        assertEquals("SOLD OUT", vend.display);
+    }
 }
