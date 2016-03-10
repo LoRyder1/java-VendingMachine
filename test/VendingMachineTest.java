@@ -48,6 +48,12 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void
+    public void leftoverAmountAfterPurchaseIsPlacedInCoinReturn() {
+        vend.insertCoin(Coin.Quarter);
+        vend.insertCoin(Coin.Quarter);
+        vend.insertCoin(Coin.Quarter);
+        vend.selectProduct(Product.Chips);
+        assertEquals(Coin.Quarter, vend.coinReturn[0]);
+    }
 
 }

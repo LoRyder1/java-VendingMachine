@@ -6,7 +6,7 @@ public class VendingMachine {
     private int indexCoin = 0;
     public String display = "INSERT COIN";
     public Product dispenser[] = new Product[10];
-    private int indexDis;
+    private int indexDis = 0;
 
     public void insertCoin(Coin coin) {
         if (coin.value == 1) {
