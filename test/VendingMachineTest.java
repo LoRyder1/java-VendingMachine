@@ -71,4 +71,11 @@ public class VendingMachineTest {
         vend.selectProduct(Product.Candy);
         assertEquals("SOLD OUT", vend.display);
     }
+
+    @Test
+    public void exactChangeOnly() {
+        vend.insertCoin(Coin.Quarter);
+        vend.noChange();
+        assertEquals("EXACT CHANGE ONLY", vend.display);
+    }
 }
