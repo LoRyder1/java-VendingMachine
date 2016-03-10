@@ -2,13 +2,15 @@
 public class VendingMachine {
 
     public int currentAmount;
-    public Coin dispenser[] = new Coin[10];
-    private int index = 0;
+    public Coin coinReturn[] = new Coin[10];
+    private int indexCoin = 0;
     public String display = "INSERT COIN";
+    public Product dispenser[] = new Product[10];
+    private int indexDis;
 
     public void insertCoin(Coin coin) {
         if (coin.value == 1) {
-            dispenser[index++] = coin;
+            coinReturn[indexCoin++] = coin;
         } else {
             currentAmount += coin.value;
             updateDisplay();
@@ -16,9 +18,20 @@ public class VendingMachine {
     }
 
     private void updateDisplay() {
-//        String output = String.format("%s is %d years old.", name, age);
-        display = String.format("Amount: %d", currentAmount);
+        display = String.format("AMOUNT: %d", currentAmount);
     }
 
+    public void selectProduct(Product product) {
+        if (currentAmount >= product.value) {
+            buyProduct(product);
+            dispenser[indexDis++] = product;
+        } else {
+            display = String.format("PRICE: %d", product.value);
+        }
+    }
+
+    private void buyProduct(Product product) {
+        currentAmount -= product.value;
+    }
 }
 
