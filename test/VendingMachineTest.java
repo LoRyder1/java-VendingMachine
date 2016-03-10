@@ -47,4 +47,7 @@ public class VendingMachineTest {
         assertEquals(0, vend.currentAmount);
     }
 
+    @Test
+    public void
+
 }

@@ -25,6 +25,7 @@ public class VendingMachine {
         if (currentAmount >= product.value) {
             buyProduct(product);
             dispenser[indexDis++] = product;
+            display = "THANK YOU";
         } else {
             display = String.format("PRICE: %d", product.value);
         }
