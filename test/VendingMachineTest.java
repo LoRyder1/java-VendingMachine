@@ -6,75 +6,77 @@ public class VendingMachineTest {
 
     private VendingMachine vend = new VendingMachine();
 
+    private void addCoins(Coin type, int num) {
+        for(int i = 0; i < num; i++) {
+            vend.insertCoin(type);
+        }
+    }
+
     @Test
     public void insertingACoingAddsToCurrentAmount() {
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 1);
         assertEquals(25, vend.currentAmount);
     }
 
     @Test
     public void insertingPennyAddsCoinToDispenser() {
-        vend.insertCoin(Coin.Penny);
+        addCoins(Coin.Penny, 1);
         assertEquals(Coin.Penny, vend.coinReturn[0]);
     }
 
     @Test
     public void insertingACoinUpdatesDisplay() {
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 1);
         assertEquals("AMOUNT: 25", vend.display);
     }
 
     @Test
     public void selectProductandDispenseIfEnoughMoney() {
-        vend.insertCoin(Coin.Quarter);
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 2);
         vend.selectProduct(Product.Chips);
         assertEquals(Product.Chips, vend.dispenser[0]);
     }
 
     @Test
     public void selecProductAndNotEnoughMoney() {
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 1);
         vend.selectProduct(Product.Chips);
         assertEquals("PRICE: 50", vend.display);
     }
 
     @Test
     public void selectingProductShouldSubtractMoneyFromCurrentAmount() {
-        vend.insertCoin(Coin.Quarter);
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 2);
         vend.selectProduct(Product.Chips);
         assertEquals(0, vend.currentAmount);
     }
 
     @Test
     public void leftoverAmountAfterPurchaseIsPlacedInCoinReturn() {
-        vend.insertCoin(Coin.Quarter);
-        vend.insertCoin(Coin.Quarter);
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 3);
         vend.selectProduct(Product.Chips);
         assertEquals(Coin.Quarter, vend.coinReturn[0]);
     }
 
     @Test
     public void returnChangeAfterInsertingMoney() {
-        vend.insertCoin(Coin.Nickel);
-        vend.insertCoin(Coin.Dime);
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Nickel, 1);
+        addCoins(Coin.Dime, 1);
+        addCoins(Coin.Quarter, 1);
         vend.returnChange();
         assertEquals(Coin.Nickel, vend.coinReturn[2]);
     }
 
     @Test
     public void whenASoldOutIsSelectedUpdateDisplay() {
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 1);
         vend.selectProduct(Product.Candy);
         assertEquals("SOLD OUT", vend.display);
     }
 
     @Test
     public void exactChangeOnly() {
-        vend.insertCoin(Coin.Quarter);
+        addCoins(Coin.Quarter, 1);
         vend.noChange();
         assertEquals("EXACT CHANGE ONLY", vend.display);
     }
