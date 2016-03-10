@@ -4,7 +4,7 @@ public class VendingMachine {
     public int currentAmount;
     public Coin coinReturn[] = new Coin[10];
     private int indexCoin = 0;
-    public String display = "INSERT COIN";
+    private String display;
     public Product dispenser[] = new Product[10];
     private int indexDis = 0;
 
@@ -13,24 +13,36 @@ public class VendingMachine {
             coinReturn[indexCoin++] = coin;
         } else {
             currentAmount += coin.value;
-            updateDisplay();
+            String mes = String.format("AMOUNT: %d", currentAmount);
+            updateDisplay(mes);
         }
     }
 
+    private void updateDisplay(String message) {
+        display = message;
+    }
+
     private void updateDisplay() {
-        display = String.format("AMOUNT: %d", currentAmount);
+        display = "INSERT COIN";
+    }
+
+    public String display() {
+        String currentDisplay = display;
+        updateDisplay();
+        return currentDisplay;
     }
 
     public void selectProduct(Product product) {
-        if (product.soldOut == true) {
-            display = "SOLD OUT";
+        if (product.soldOut) {
+            updateDisplay("SOLD OUT");
         }
         else if (currentAmount >= product.value) {
             buyProduct(product);
             dispenser[indexDis++] = product;
-            display = "THANK YOU";
+            updateDisplay("THANK YOU");
         } else {
-            display = String.format("PRICE: %d", product.value);
+            String mes = String.format("PRICE: %d", product.value);
+            updateDisplay(mes);
         }
     }
 
@@ -48,11 +60,10 @@ public class VendingMachine {
                 currentAmount -= coins[i].value;
             }
         }
-
     }
 
     public void noChange() {
-        display = "EXACT CHANGE ONLY";
+        updateDisplay("EXACT CHANGE ONLY");
     }
 }
 

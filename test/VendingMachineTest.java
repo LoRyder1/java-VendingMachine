@@ -27,21 +27,21 @@ public class VendingMachineTest {
     @Test
     public void insertingACoinUpdatesDisplay() {
         addCoins(Coin.Quarter, 1);
-        assertEquals("AMOUNT: 25", vend.display);
+        assertEquals("AMOUNT: 25", vend.display());
     }
 
     @Test
-    public void selectProductandDispenseIfEnoughMoney() {
+    public void selectProductAndDispenseIfEnoughMoney() {
         addCoins(Coin.Quarter, 2);
         vend.selectProduct(Product.Chips);
         assertEquals(Product.Chips, vend.dispenser[0]);
     }
 
     @Test
-    public void selecProductAndNotEnoughMoney() {
+    public void selectProductAndNotEnoughMoney() {
         addCoins(Coin.Quarter, 1);
         vend.selectProduct(Product.Chips);
-        assertEquals("PRICE: 50", vend.display);
+        assertEquals("PRICE: 50", vend.display());
     }
 
     @Test
@@ -71,13 +71,13 @@ public class VendingMachineTest {
     public void whenASoldOutIsSelectedUpdateDisplay() {
         addCoins(Coin.Quarter, 1);
         vend.selectProduct(Product.Candy);
-        assertEquals("SOLD OUT", vend.display);
+        assertEquals("SOLD OUT", vend.display());
     }
 
     @Test
     public void exactChangeOnly() {
         addCoins(Coin.Quarter, 1);
         vend.noChange();
-        assertEquals("EXACT CHANGE ONLY", vend.display);
+        assertEquals("EXACT CHANGE ONLY", vend.display());
     }
 }
