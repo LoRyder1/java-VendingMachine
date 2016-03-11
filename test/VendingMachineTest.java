@@ -5,6 +5,7 @@ import static junit.framework.TestCase.assertEquals;
 public class VendingMachineTest {
 
     private VendingMachine vend = new VendingMachine();
+    private Display message = new Display();
 
     private void addCoins(Coin type, int num) {
         for(int i = 0; i < num; i++) {
@@ -27,7 +28,7 @@ public class VendingMachineTest {
     @Test
     public void insertingACoinUpdatesDisplay() {
         addCoins(Coin.Quarter, 1);
-        assertEquals("AMOUNT: 25", vend.display());
+        assertEquals("AMOUNT: 25", vend.readDisplay());
     }
 
     @Test
@@ -41,7 +42,7 @@ public class VendingMachineTest {
     public void selectProductAndNotEnoughMoney() {
         addCoins(Coin.Quarter, 1);
         vend.selectProduct(Product.Chips);
-        assertEquals("PRICE: 50", vend.display());
+        assertEquals("PRICE: 50", vend.readDisplay());
     }
 
     @Test
@@ -60,8 +61,7 @@ public class VendingMachineTest {
 
     @Test
     public void returnChangeAfterInsertingMoney() {
-        addCoins(Coin.Nickel, 1);
-        addCoins(Coin.Dime, 1);
+        addCoins(Coin.Nickel, 1); addCoins(Coin.Dime, 1);
         addCoins(Coin.Quarter, 1);
         vend.returnChange();
         assertEquals(Coin.Nickel, vend.coinReturn[2]);
@@ -71,13 +71,12 @@ public class VendingMachineTest {
     public void whenASoldOutIsSelectedUpdateDisplay() {
         addCoins(Coin.Quarter, 1);
         vend.selectProduct(Product.Candy);
-        assertEquals("SOLD OUT", vend.display());
+        assertEquals("SOLD OUT", vend.readDisplay());
     }
 
     @Test
     public void exactChangeOnly() {
-        addCoins(Coin.Quarter, 1);
-        vend.noChange();
-        assertEquals("EXACT CHANGE ONLY", vend.display());
+        addCoins(Coin.Quarter, 1); message.noChange();
+        assertEquals("EXACT CHANGE ONLY", message.display());
     }
 }
