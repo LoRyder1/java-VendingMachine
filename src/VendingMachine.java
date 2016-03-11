@@ -12,13 +12,16 @@ public class VendingMachine {
     private Display message = new Display();
 
     public void insertCoin(Coin coin) {
-        if (coin.value == 1) {
+        if (coinValid(coin)) {
             coinReturn[indexCoin++] = coin;
         } else {
             currentAmount += coin.value;
-            String mes = String.format("AMOUNT: %d", currentAmount);
-            message.updateDisplay(mes);
+            message.updateToAmountMessage(currentAmount);
         }
+    }
+
+    private boolean coinValid(Coin coin) {
+        return coin.value == 1;
     }
 
     public String readDisplay() {
@@ -34,8 +37,7 @@ public class VendingMachine {
             dispenser[indexDis++] = product;
             message.updateDisplay("THANK YOU");
         } else {
-            String mes = String.format("PRICE: %d", product.value);
-            message.updateDisplay(mes);
+            message.updateToPriceMessage(product.value);
         }
     }
 
@@ -46,11 +48,11 @@ public class VendingMachine {
 
     public void returnChange() {
         for(int coinIndex = 0; coinIndex < coins.length; coinIndex++) {
-            addToCoinReturns(coinIndex);
+            addToCoinReturn(coinIndex);
         }
     }
 
-    private void addToCoinReturns(int coinIndex) {
+    private void addToCoinReturn(int coinIndex) {
         int n = currentAmount / coins[coinIndex].value;
         for(int j = 0; j < n; j++) {
             coinReturn[indexCoin++] = coins[coinIndex];
