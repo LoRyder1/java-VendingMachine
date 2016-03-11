@@ -20,6 +20,10 @@ public class VendingMachine {
         }
     }
 
+    public void noChange() {
+        message.updateDisplay("EXACT CHANGE ONLY");
+    }
+
     private boolean coinValid(Coin coin) {
         return coin.value == 1;
     }

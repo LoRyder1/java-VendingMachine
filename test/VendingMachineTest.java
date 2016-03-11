@@ -76,7 +76,7 @@ public class VendingMachineTest {
 
     @Test
     public void exactChangeOnly() {
-        addCoins(Coin.Quarter, 1); message.noChange();
-        assertEquals("EXACT CHANGE ONLY", message.display());
+        addCoins(Coin.Quarter, 1); vend.noChange();
+        assertEquals("EXACT CHANGE ONLY", vend.readDisplay());
     }
 }

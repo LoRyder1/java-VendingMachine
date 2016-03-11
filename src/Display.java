@@ -9,10 +9,6 @@ public class Display {
         return currentDisplay;
     }
 
-    public void noChange() {
-        updateDisplay("EXACT CHANGE ONLY");
-    }
-
     private void updateDisplay() {
         display = "INSERT COIN";
     }
